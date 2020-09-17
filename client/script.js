@@ -372,6 +372,17 @@ function randomCardColour() {
     return colours[i];
 }
 
+function createCardAtRandomPos(color) {
+    var rotation = Math.random() * 10 - 5; //add a bit of random rotation (+/- 10deg)
+    uniqueID = Math.round(Math.random() * 99999999); //is this big enough to assure uniqueness?
+    //alert(uniqueID);
+    createCard(
+        'card' + uniqueID,
+        '',
+        58, $('div.board-outline').height(), // hack - not a great way to get the new card coordinates, but most consistant ATM
+        rotation,
+        color);
+}
 
 function initCards(cardArray) {
     //first delete any cards that exist
@@ -694,18 +705,28 @@ $(function() {
 
     $("#create-card")
         .click(function() {
-            var rotation = Math.random() * 10 - 5; //add a bit of random rotation (+/- 10deg)
-            uniqueID = Math.round(Math.random() * 99999999); //is this big enough to assure uniqueness?
-            //alert(uniqueID);
-            createCard(
-                'card' + uniqueID,
-                '',
-                58, $('div.board-outline').height(), // hack - not a great way to get the new card coordinates, but most consistant ATM
-                rotation,
-                randomCardColour());
+            createCardAtRandomPos(randomCardColour())
         });
 
+    $("#create-card-yellow")
+        .click(function() {
+            createCardAtRandomPos('yellow')
+        });
 
+    $("#create-card-green")
+        .click(function() {
+            createCardAtRandomPos('green')
+        });
+
+    $("#create-card-blue")
+        .click(function() {
+            createCardAtRandomPos('blue')
+        });
+
+    $("#create-card-white")
+        .click(function() {
+            createCardAtRandomPos('white')
+        });
 
     // Style changer
     $("#smallify").click(function() {
