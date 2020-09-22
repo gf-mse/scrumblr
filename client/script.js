@@ -730,11 +730,14 @@ $(function() {
 
     // Style changer
     $("#smallify").click(function() {
-        if (currentTheme == "bigcards") {
-            changeThemeTo('smallcards');
-        } else if (currentTheme == "smallcards") {
+        if (currentTheme == "smallcards") {
+            changeThemeTo('mediumcards');
+        } else if (currentTheme == "mediumcards") {
             changeThemeTo('bigcards');
+        } else {
+            changeThemeTo('smallcards');
         }
+
         /*else if (currentTheme == "nocards")
 		{
 			currentTheme = "bigcards";
