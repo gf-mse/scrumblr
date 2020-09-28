@@ -5,6 +5,16 @@ what is it
 ----------
 [scrumblr](http://scrumblr.ca) is a web-based simulation of a physical agile kanban board that supports real-time collaboration. it is built using node.js, websockets (using socket.io), CSS3, and jquery. i hope you like it.
 
+This fork contains useful extensions and fixes of this simple and great tool used for my SCRUM stand-ups.
+- horizontal separators
+- card buttons for each color
+- middle-sized cards
+- visible star stickers
+- MongoDB fixes
+- ...
+
+![Extensions and fixes](scrumblr_extensions_2020.png)
+
 ![Wellca Board](http://scrumblr.ca/images/screenshot.png)
 
 you can play with a demo here:
