@@ -27,7 +27,7 @@ socket.on('connect', function() {
     //let the final part of the path be the room name
     var room = location.pathname.substring(location.pathname.lastIndexOf('/'));
 
-    //imediately join the room which will trigger the initializations
+    //immediately join the room which will trigger the initializations
     sendAction('joinRoom', room);
 });
 
@@ -68,11 +68,11 @@ function blockUI(message) {
 
 //respond to an action event
 function getMessage(m) {
-    var message = m; //JSON.parse(m);
+    var message = m;
     var action = message.action;
     var data = message.data;
 
-    //console.log('<-- ' + action);
+    // alert('action received: ' + action)
 
     switch (action) {
         case 'roomAccept':
@@ -94,9 +94,7 @@ function getMessage(m) {
             break;
 
         case 'createCard':
-            //console.log(data);
-            drawNewCard(data.id, data.text, data.x, data.y, data.rot, data.colour,
-                null);
+            drawNewCard(data.id, data.text, data.x, data.y, data.rot, data.colour, null);
             break;
 
         case 'deleteCard':
@@ -117,6 +115,33 @@ function getMessage(m) {
 
         case 'updateColumns':
             initColumns(data);
+            break;
+
+        case 'initRows':
+            initRows(data);
+            break;
+
+        case 'createRow':
+            drawNewRow(data.id, data.text, data.y)
+            break;
+
+        case 'deleteRow':
+            $("#" + data.id).fadeOut(500,
+                function() {
+                    $(this).remove();
+                }
+            )
+            break;
+
+        case 'updateRowPos':
+            row = $("#" + data.id)
+            if (row != null) {
+                row.css('top', data.y + 'px');
+            }
+            break;
+
+        case 'updateRowText':
+            $("#" + data.id).children('.row-text').text(data.text);
             break;
 
         case 'changeTheme':
@@ -145,6 +170,7 @@ function getMessage(m) {
 
         case 'setBoardSize':
             resizeBoard(message.data);
+            adjustRows(message.data.width);
             break;
 
         default:
@@ -152,8 +178,6 @@ function getMessage(m) {
             alert('unknown action: ' + JSON.stringify(message));
             break;
     }
-
-
 }
 
 $(document).bind('keyup', function(event) {
@@ -168,12 +192,9 @@ function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
         'deg);\
 	">\
 	<img src="images/icons/token/Xion.png" class="card-icon delete-card-icon" />\
-	<img class="card-image" src="images/' +
-        colour + '-card.png">\
-	<div id="content:' + id +
-        '" class="content stickertarget droppable">' +
-        text + '</div><span class="filler"></span>\
-	</div>';
+	<img class="card-image" src="images/' + colour + '-card.png">\
+	<div id="content:' + id + '" class="content stickertarget droppable">' +
+        text + '</div><span class="filler"></span></div>';
 
     var card = $(h);
     card.appendTo('#board');
@@ -294,16 +315,15 @@ function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
         submit: 'OK',
         style: 'inherit',
         cssclass: 'card-edit-form',
-        placeholder: 'Double Click to Edit.',
+        placeholder: 'Double click to edit...',
         onblur: 'submit',
-        event: 'dblclick', //event: 'mouseover'
+        event: 'dblclick'
     });
 
     //add applicable sticker
     if (sticker !== null)
         addSticker(id, sticker);
 }
-
 
 function onCardChange(id, text) {
     sendAction('editCard', {
@@ -320,14 +340,12 @@ function moveCard(card, position) {
 }
 
 function addSticker(cardId, stickerId) {
-
     stickerContainer = $('#' + cardId + ' .filler');
 
     if (stickerId === "nosticker") {
         stickerContainer.html("");
         return;
     }
-
 
     if (Array.isArray(stickerId)) {
         for (var i in stickerId) {
@@ -339,9 +357,7 @@ function addSticker(cardId, stickerId) {
             stickerContainer.prepend('<img src="images/stickers/' + stickerId +
                 '.png">');
     }
-
 }
-
 
 //----------------------------------
 // cards
@@ -361,12 +377,10 @@ function createCard(id, text, x, y, rot, colour) {
     };
 
     sendAction(action, data);
-
 }
 
 function randomCardColour() {
     var colours = ['yellow', 'green', 'blue', 'white'];
-
     var i = Math.floor(Math.random() * colours.length);
 
     return colours[i];
@@ -374,10 +388,10 @@ function randomCardColour() {
 
 function createCardAtRandomPos(color) {
     var rotation = Math.random() * 10 - 5; //add a bit of random rotation (+/- 10deg)
-    uniqueID = Math.round(Math.random() * 99999999); //is this big enough to assure uniqueness?
-    //alert(uniqueID);
+    var id = Math.round(Math.random() * 99999999); //is this big enough to assure uniqueness?
+
     createCard(
-        'card' + uniqueID,
+        'card' + id,
         '',
         58, $('div.board-outline').height(), // hack - not a great way to get the new card coordinates, but most consistant ATM
         rotation,
@@ -411,7 +425,7 @@ function initCards(cardArray) {
 
 
 //----------------------------------
-// cols
+// COLUMNS
 //----------------------------------
 
 function drawNewColumn(columnName) {
@@ -447,11 +461,8 @@ function drawNewColumn(columnName) {
 function onColumnChange(id, text) {
     var names = Array();
 
-    //console.log(id + " " + text );
-
     //Get the names of all the columns right from the DOM
     $('.col').each(function() {
-
         //get ID of current column we are traversing over
         var thisID = $(this).children("h2").attr('id');
 
@@ -460,7 +471,6 @@ function onColumnChange(id, text) {
         } else {
             names.push($(this).text());
         }
-
     });
 
     updateColumns(names);
@@ -479,26 +489,32 @@ function displayRemoveColumn() {
 }
 
 function createColumn(name) {
-    if (totalcolumns >= 8) return false;
+    if (totalcolumns >= 8) {
+        return false;
+    }
+
+    if (!confirm('Do you really want to add a column?')) {
+        return false;
+    }
 
     drawNewColumn(name);
     columns.push(name);
 
     var action = "updateColumns";
-
     var data = columns;
 
     sendAction(action, data);
 }
 
 function deleteColumn() {
-    if (totalcolumns <= 0) return false;
+    if (totalcolumns <= 0) {
+        return false;
+    }
 
     displayRemoveColumn();
     columns.pop();
 
     var action = "updateColumns";
-
     var data = columns;
 
     sendAction(action, data);
@@ -508,7 +524,6 @@ function updateColumns(c) {
     columns = c;
 
     var action = "updateColumns";
-
     var data = columns;
 
     sendAction(action, data);
@@ -519,6 +534,133 @@ function deleteColumns(next) {
     $('.col').fadeOut('slow', next());
 }
 
+//----------------------------------
+// ROWS
+//----------------------------------
+
+function drawNewRow(id, text, y) {
+    var h = '<div id="' + id + '" class="draggable row-line">' +
+    '<span id="row-text-' + id + '" class="editable row-text" style="padding-left: 25px;">' + text + '</span>' +
+	'<img src="images/icons/token/Xion.png" class="row-icon" />' +
+	'</div>'
+
+    var row = $(h);
+    w = $('#board').width()
+    row.appendTo('#board');
+    row.css('width', w + 'px');
+    row.css('top', y + 'px');
+    row.css('left', 0 + 'px');
+
+    row.draggable(
+        {
+           axis: "y",
+           containment: "#board",
+           stop: function(event, ui) {
+               var newY = ui.position.top;
+               updateRowPos(id, newY);
+           }
+        }
+    )
+
+    row.children('.editable').editable(function(value, settings) {
+        updateRowText(id, value);
+        return (value);
+    }, {
+        type: 'textarea',
+        style: 'inherit',
+        cssclass: 'card-edit-form',
+        placeholder: 'Double Click to Edit.',
+        width: '200px',
+        height: '',
+        onblur: 'submit',
+        event: 'dblclick',
+    });
+
+    row.hover(
+        function() {
+            $(this).addClass('hover');
+            $(this).children('.row-icon').fadeIn(10);
+        },
+        function() {
+            $(this).removeClass('hover');
+            $(this).children('.row-icon').fadeOut(150);
+        }
+    );
+
+    row.children('.row-icon').hover(
+        function() {
+            $(this).addClass('row-icon-hover');
+        },
+        function() {
+            $(this).removeClass('row-icon-hover');
+        }
+    );
+
+    row.children('.row-icon').click(
+        function() {
+            if (confirm('Do you really want to delete the row?')) {
+                deleteRow(id);
+                $("#" + id).remove();
+            }
+        }
+    );
+}
+
+function createNewRow() {
+    var id = 'row' + Math.round(Math.random() * 99999999);
+    createRow(id, 'Sample text', 200);
+}
+
+function createRow(id, text, y) {
+    drawNewRow(id, text, y);
+
+    var action = "createRow";
+    var data = {
+        id: id,
+        text: text,
+        y: y
+    };
+
+    sendAction(action, data);
+}
+
+function deleteRow(id) {
+    var action = "deleteRow";
+    var data = {
+        id: id
+    };
+
+    sendAction(action, data);
+}
+
+function adjustRows(newWidth) {
+    w = newWidth == null ? $('#board').width() : newWidth;
+
+    $('.row-line').each(function() {
+        $(this).css('width', w + 'px');
+    });
+}
+
+function updateRowText(id, text) {
+    var action = "updateRowText";
+    var data = {
+        id: id,
+        text: text,
+    };
+
+    sendAction(action, data);
+}
+
+function updateRowPos(id, y) {
+    var action = "updateRowPos";
+    var data = {
+        id: id,
+        y: y
+    };
+
+    sendAction(action, data);
+}
+
 function initColumns(columnArray) {
     totalcolumns = 0;
     columns = columnArray;
@@ -527,31 +669,35 @@ function initColumns(columnArray) {
 
     for (var i in columnArray) {
         column = columnArray[i];
-
-        drawNewColumn(
-            column
-        );
+        drawNewColumn(column);
     }
 }
 
+function initRows(rowArray) {
+    $('.row-line').remove();
+
+    for (var i in rowArray) {
+        row = rowArray[i];
+        drawNewRow(row.id, row.text, row.y);
+    }
+
+    adjustRows(null);
+}
 
 function changeThemeTo(theme) {
     currentTheme = theme;
     $("link[title=cardsize]").attr("href", "css/" + theme + ".css");
 }
 
-
 //////////////////////////////////////////////////////////
 ////////// NAMES STUFF ///////////////////////////////////
 //////////////////////////////////////////////////////////
 
 
-
 function setCookie(c_name, value, exdays) {
     var exdate = new Date();
     exdate.setDate(exdate.getDate() + exdays);
-    var c_value = escape(value) + ((exdays === null) ? "" : "; expires=" +
-        exdate.toUTCString());
+    var c_value = escape(value) + ((exdays === null) ? "" : "; expires=" + exdate.toUTCString());
     document.cookie = c_name + "=" + c_value;
 }
 
@@ -567,16 +713,13 @@ function getCookie(c_name) {
     }
 }
 
-
 function setName(name) {
     sendAction('setUserName', name);
-
     setCookie('scrumscrum-username', name, 365);
 }
 
 function displayInitialUsers(users) {
     for (var i in users) {
-        //console.log(users);
         displayUserJoined(users[i].sid, users[i].user_name);
     }
 }
@@ -587,7 +730,6 @@ function displayUserJoined(sid, user_name) {
         name = user_name;
     else
         name = sid.substring(0, 5);
-
 
     $('#names-ul').append('<li id="user-' + sid + '">' + name + '</li>');
 }
@@ -605,7 +747,6 @@ function displayUserLeft(sid) {
         $(this).remove();
     });
 }
-
 
 function updateName(sid, name) {
     var id = '#user-' + sid.toString();
@@ -650,7 +791,6 @@ function calcCardOffset() {
     return offsets;
 }
 
-
 //moves cards with a resize of the Board
 //doSync is false if you don't want to synchronize
 //with all the other users who are in this room
@@ -691,17 +831,8 @@ function adjustCard(offsets, doSync) {
 //////////////////////////////////////////////////////////
 
 $(function() {
-
-
-	//disable image dragging
-	//window.ondragstart = function() { return false; };
-
-
     if (boardInitialized === false)
         blockUI('<img src="images/ajax-loader.gif" width=43 height=11/>');
-
-    //setTimeout($.unblockUI, 2000);
-
 
     $("#create-card")
         .click(function() {
@@ -738,19 +869,9 @@ $(function() {
             changeThemeTo('smallcards');
         }
 
-        /*else if (currentTheme == "nocards")
-		{
-			currentTheme = "bigcards";
-			$("link[title=cardsize]").attr("href", "css/bigcards.css");
-		}*/
-
         sendAction('changeTheme', currentTheme);
-
-
         return false;
     });
-
-
 
     $('#icon-col').hover(
         function() {
@@ -770,25 +891,21 @@ $(function() {
 
     $('#delete-col').click(
         function() {
-            deleteColumn();
+            if (confirm('Do you really want to delete the column?')) {
+                deleteColumn();
+            }
             return false;
         }
     );
 
-
-    // $('#cog-button').click( function(){
-    // 	$('#config-dropdown').fadeToggle();
-    // } );
-
-    // $('#config-dropdown').hover(
-    // 	function(){ /*$('#config-dropdown').fadeIn()*/ },
-    // 	function(){ $('#config-dropdown').fadeOut() }
-    // );
-    //
+    $('#add-row').click(
+        function() {
+            createNewRow();
+            return false;
+        }
+    );
 
     var user_name = getCookie('scrumscrum-username');
-
-
 
     $("#yourname-input").focus(function() {
         if ($(this).val() == 'unknown') {
@@ -796,7 +913,6 @@ $(function() {
         }
 
         $(this).addClass('focused');
-
     });
 
     $("#yourname-input").blur(function() {
@@ -810,7 +926,6 @@ $(function() {
 
     $("#yourname-input").val(user_name);
     $("#yourname-input").blur();
-
     $("#yourname-li").hide();
 
     $("#yourname-input").keypress(function(e) {
@@ -820,13 +935,10 @@ $(function() {
         }
     });
 
-
-
     $(".sticker").draggable({
         revert: true,
         zIndex: 1000
     });
-
 
     $(".board-outline").resizable({
         ghost: false,
@@ -849,10 +961,9 @@ $(function() {
         $(".board-outline").bind("resizestop", function(event, ui) {
             boardResizeHappened(event, ui);
             adjustCard(offsets, true);
+            adjustRows(ui.position.width);
         });
     })();
-
-
 
     $('#marker').draggable({
         axis: 'x',
@@ -863,6 +974,4 @@ $(function() {
         axis: 'x',
         containment: 'parent'
     });
-
-
 });
