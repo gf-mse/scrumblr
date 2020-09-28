@@ -528,7 +528,6 @@ function cleanAndInitializeDemoRoom() {
 		db.createColumn( '/demo', 'Review' );
 		db.createColumn( '/demo', 'Complete' );
 
-
 		createCard('/demo', 'card1', 'Hello this is fun', roundRand(600), roundRand(300), Math.random() * 10 - 5, 'yellow');
 		createCard('/demo', 'card2', 'Hello this is a new story.', roundRand(600), roundRand(300), Math.random() * 10 - 5, 'white');
 		createCard('/demo', 'card3', '.', roundRand(600), roundRand(300), Math.random() * 10 - 5, 'blue');
@@ -538,6 +537,8 @@ function cleanAndInitializeDemoRoom() {
 		createCard('/demo', 'card6', 'Hello this is a new card.', roundRand(600), roundRand(300), Math.random() * 10 - 5, 'yellow');
 		createCard('/demo', 'card7', '.', roundRand(600), roundRand(300), Math.random() * 10 - 5, 'blue');
 		createCard('/demo', 'card8', '.', roundRand(600), roundRand(300), Math.random() * 10 - 5, 'green');
+
+		db.createRow('/demo', 'row123', {id: 'row123', text: 'Not committed tasks...', y: 350});
 	});
 }
 
