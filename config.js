@@ -17,7 +17,7 @@ if ('mongodb' in argv) {
     dbHost = argv.mongodb.split(':')[0]
     dbPort = parseInt(argv.mongodb.split(':')[1])
 
-    console.log('Connecting to MongoDB...' + mongodbHost + ':' + mongodbPort);
+    console.log('Connecting to MongoDB...' + dbHost + ':' + dbPort);
 
     exports.database = {
         type: 'mongodb',

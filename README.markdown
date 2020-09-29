@@ -54,9 +54,11 @@ how to install and run on your own computer (linux/osx)
 - install npm (if you're running node.js [v0.6.3](https://github.com/joyent/node/commit/b159c6) or newer it's already installed!)
 - cd to the scrumblr directory; you should see server.js and config.js and other files.
 - run `npm install`
-- run redis `redis-server`
-- run scrumblr `node server.js --port 80` where "80" is the port you have opened in your firewall and want scrumblr to run on. 
+- run Redis or MongoDB database engine
+- run scrumblr using `node server.js --port 80` where "80" is the port you have opened in your firewall and want scrumblr to run on (with Redis running on 127.0.0.1:6379).
+- optionally you can choose MongoDB or Redis instance using `node server.js --port 80 --redis DB_HOST:6379` or `node server.js --port 80 --mongodb DB_HOST:27017`
 - open a browser to `http://<server>:<port>` where `<server>` is your server's url or IP address, and `<port>` is the port you chose in the previous step.
+- consider running the service using `pm2` tool (https://pm2.keymetrics.io/)
 
 license
 -------
