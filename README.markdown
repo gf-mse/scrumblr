@@ -7,6 +7,7 @@ what is it
 
 This fork contains useful extensions and fixes of this simple and great tool used for my SCRUM stand-ups.
 - horizontal separators
+- seven colors of cards
 - card buttons for each color
 - middle-sized cards
 - visible star stickers

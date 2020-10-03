@@ -184,6 +184,24 @@ h3 {
 	color: yellow;
 }
 
+.bottom-icon-orange {
+	padding: 5px;
+	opacity: .4;
+	color: orange;
+}
+
+.bottom-icon-purple {
+	padding: 5px;
+	opacity: .4;
+	color: purple;
+}
+
+.bottom-icon-red {
+	padding: 5px;
+	opacity: .4;
+	color: red;
+}
+
 .bottom-icon:hover {
 	padding: 5px;
 	opacity: .6;
@@ -205,6 +223,21 @@ h3 {
 }
 
 .bottom-icon-yellow:hover {
+	padding: 5px;
+	opacity: .8;
+}
+
+.bottom-icon-orange:hover {
+	padding: 5px;
+	opacity: .8;
+}
+
+.bottom-icon-purple:hover {
+	padding: 5px;
+	opacity: .8;
+}
+
+.bottom-icon-red:hover {
 	padding: 5px;
 	opacity: .8;
 }

@@ -380,7 +380,7 @@ function createCard(id, text, x, y, rot, colour) {
 }
 
 function randomCardColour() {
-    var colours = ['yellow', 'green', 'blue', 'white'];
+    var colours = ['yellow', 'green', 'blue', 'white', 'orange', 'purple', 'red'];
     var i = Math.floor(Math.random() * colours.length);
 
     return colours[i];
@@ -389,11 +389,14 @@ function randomCardColour() {
 function createCardAtRandomPos(color) {
     var rotation = Math.random() * 10 - 5; //add a bit of random rotation (+/- 10deg)
     var id = Math.round(Math.random() * 99999999); //is this big enough to assure uniqueness?
+    var offsetX = Math.round(Math.random() * 50)
+    var offsetY = Math.round(Math.random() * 20)
 
     createCard(
         'card' + id,
         '',
-        58, $('div.board-outline').height(), // hack - not a great way to get the new card coordinates, but most consistant ATM
+        60 + offsetX,
+        $('div.board-outline').height() + 30 + offsetY,
         rotation,
         color);
 }
@@ -857,6 +860,21 @@ $(function() {
     $("#create-card-white")
         .click(function() {
             createCardAtRandomPos('white')
+        });
+
+    $("#create-card-orange")
+        .click(function() {
+            createCardAtRandomPos('orange')
+        });
+
+    $("#create-card-purple")
+        .click(function() {
+            createCardAtRandomPos('purple')
+        });
+
+    $("#create-card-red")
+        .click(function() {
+            createCardAtRandomPos('red')
         });
 
     // Style changer
