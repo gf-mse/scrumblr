@@ -4,25 +4,20 @@ body {
 	color: #333;
 	background-color: #ddd;
 	xbackground-image: -webkit-gradient(radial, 265 118, 456, 147 0, 29, from(#DDDDDD), to(#f3f3f3));
-
 	padding-left: 10px;
-
 	xheight: 1400px;
 	xwidth: 2000px;
-
 	user-select: none;
 	-o-user-select:none;
 	-moz-user-select: none;
 	-khtml-user-select: none;
 	-webkit-user-select: none;
-
 	background-image: url('bg/concrete_wall_2_2.png');
 }
 
 #board {
 	position: relative;
 	background-color: #dcd5d1;
-
 	height: 100%;
 	xwidth: 980px;
 	xborder: solid silver 8px;
@@ -46,12 +41,9 @@ body {
 	display: block;
 	width: 996px;
 	height: 466px;
-
 	xmargin-left: auto;
 	xmargin-right: auto;
-
 	box-shadow: 1px 3px 2px #aaa;
-
 	x-webkit-transform:rotate(0.3deg); /*"is that a little off-level? i feel like it is off-level"*/
 }
 
@@ -69,11 +61,11 @@ body {
 }
 
 .card-icon {
-display:none;
-position: absolute;
-top: 3%; left: 82%;
-opacity: .3;
-width: 16px; height: 16px;
+    display:none;
+    position: absolute;
+    top: 3%; left: 82%;
+    opacity: .3;
+    width: 16px; height: 16px;
 }
 
 .card-icon-hover {
@@ -87,7 +79,7 @@ width: 16px; height: 16px;
 	background-color:inherit;
 	xvertical-align: inherit;
 	font-family: inherit;
-	text-align: center;
+	text-align: left;
 	xcolor: #444;
 	padding: 0;
 	margin: 0;
@@ -267,6 +259,7 @@ h3 {
 #add-row {
 	position: absolute; right: 3px; top: 250px; display: none; opacity: .15;
 }
+
 #add-row:hover {
 	opacity: .5;
 }
@@ -274,6 +267,7 @@ h3 {
 #delete-row {
 	position: absolute; right: 3px; top: 274px; display: none; opacity: .15;
 }
+
 #delete-row:hover {
 	opacity: .5;
 }
@@ -306,7 +300,6 @@ h3 {
 	letter-spacing: 4px;
 	font-family:  "Helvetica Neue Light", "HelveticaNeue-Light", 'Helvetica Neue', arial, serif;
 	font-size: 13px;
-
 }
 
 .names p {
@@ -350,7 +343,7 @@ h3 {
     width: 100px;
     background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF));
     background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px);
-xopacity: .5;
+    xopacity: .5;
 	background: none;
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
 	border-radius: 10px;
@@ -360,7 +353,6 @@ xopacity: .5;
 	font-size: 13px;
 	letter-spacing: 4px;
 	margin:0;
-
 }
 
 .names .focused {
@@ -435,7 +427,6 @@ xopacity: .5;
 	background-image: url('../images/icons/iconic/raster/black/plus_8x8.png');
 	background-position: 2px 2px;
 	opacity: 0.3;
-
 	display: inline-block;
 	width: 11px;
 	height: 11px;
@@ -484,7 +475,6 @@ h1.home {
 
 p.home a {
 	color: #5c9db4;
-
 	text-decoration: none;
 }
 
@@ -517,14 +507,13 @@ input:hover {
 }
 
 #go {
-	 background: none;
+	background: none;
     margin-bottom: 10px;
     border: none;
 	font-size: 40px;
 	font-family: 'Covered By Your Grace',"Arial Rounded MT Bold", arial, serif;
 	color: #19ba98;
 	color: black;
-
 	xborder: solid 1px;
 }
 

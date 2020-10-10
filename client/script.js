@@ -106,7 +106,8 @@ function getMessage(m) {
             break;
 
         case 'editCard':
-            $("#" + data.id).children('.content:first').text(data.value);
+            $("#" + data.id).children('.content:first').attr('data-text', data.value);
+            $("#" + data.id).children('.content:first').html(marked(data.value));
             break;
 
         case 'initColumns':
@@ -193,22 +194,12 @@ function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
 	">\
 	<img src="images/icons/token/Xion.png" class="card-icon delete-card-icon" />\
 	<img class="card-image" src="images/' + colour + '-card.png">\
-	<div id="content:' + id + '" class="content stickertarget droppable">' +
-        text + '</div><span class="filler"></span></div>';
+	<div id="content:' + id + '" class="content stickertarget droppable" data-text="">' +
+        marked(text) + '</div><span class="filler"></span></div>';
 
     var card = $(h);
     card.appendTo('#board');
-
-    //@TODO
-    //Draggable has a bug which prevents blur event
-    //http://bugs.jqueryui.com/ticket/4261
-    //So we have to blur all the cards and editable areas when
-    //we click on a card
-    //The following doesn't work so we will do the bug
-    //fix recommended in the above bug report
-    // card.click( function() {
-    // 	$(this).focus();
-    // } );
+    $("#" + id).children('.content:first').attr('data-text', text);
 
     card.draggable({
         snap: false,
@@ -308,10 +299,14 @@ function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
     );
 
     card.children('.content').editable(function(value, settings) {
+        $("#" + id).children('.content:first').attr('data-text', value);
         onCardChange(id, value);
-        return (value);
+        return (marked(value));
     }, {
         type: 'textarea',
+        data: function() {
+            return $("#" + id).children('.content:first').attr('data-text');
+        },
         submit: 'OK',
         style: 'inherit',
         cssclass: 'card-edit-form',

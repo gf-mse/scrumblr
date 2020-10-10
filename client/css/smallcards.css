@@ -3,20 +3,13 @@
 	height: 76px;
 	xpadding: 5px; float: left;
 	xmargin: 0 10px 10px 0;
-	font-size: .9em;
-
-
-
+    font-size: .9em;
 	overflow: hidden;
-
 	position: absolute;
 	z-index: 10;
-
 	top: 460px;
 	left: 0px;
-
 	display: block;
-
 }
 
 .pink {
@@ -46,22 +39,18 @@
 	display: block;
 	width: 79px;
 	height: 45px;
-	margin: 1px 10px 0px 19px;
-
+	/* top | right | bottom | left */
+	margin: 4px 10px 0px 19px;
 	font-family: "Arial Rounded MT Bold" , arial, serif;
 	font-size: 10px;
 	letter-spacing: 0px;
 	line-height: 9px;
-
 	xtext-shadow: 0px 0px 1px #444;
-
 	opacity: 1;
-
 	color: #333;
-	text-align: center;
-	padding-top: 8px;
+	text-align: left;
+	padding-top: 5px;
 }
-
 
 .filler {
 	margin-right: 12px;
@@ -69,24 +58,43 @@
 	margin-left: 19px;
 }
 
-
-.xcontent {
-	overflow: hidden;
-	display: block;
-	width: 79px;
-	height: 45px;
-	margin: 0px 10px 0px 19px;
-
-	font-family: "Arial Rounded MT Bold", "Arial" , arial, serif;
-	xfont-size: 10px;
+.content h1 {
+	font-family: 'Arial', "Arial Rounded MT Bold", arial, serif;
+	color: black;
 	letter-spacing: 0px;
-	line-height: 8px;
+	font-size: 14px;
+	font-weight: bold;
+}
 
-	xtext-shadow: 0px 0px 1px #444;
+.content h2 {
+	font-family: 'Arial', "Arial Rounded MT Bold", arial, serif;
+	color: black;
+	letter-spacing: 0px;
+	font-size: 12px;
+	font-weight: bold;
+	font-style: italic;
+}
 
-	opacity: 1;
+.content h3 {
+	font-family: 'Arial', "Arial Rounded MT Bold", arial, serif;
+	color: black;
+	letter-spacing: 0px;
+	font-size: 10px;
+	font-weight: bold;
+	font-style: italic;
+}
 
-	color: #333;
-	text-align: center;
-	padding-top: 8px;
+.content ul {
+	margin-left: 10px;
+}
+
+.content * {
+	margin-top: 0;
+	margin-left: 0;
+	margin-bottom: 0;
+	margin-right: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-left: 0;
+	padding-right: 0;
 }
