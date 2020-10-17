@@ -520,25 +520,27 @@ function setUserName ( client, name ) {
 }
 
 function cleanAndInitializeDemoRoom() {
+    room_name = '/demo'
+
 	// DUMMY DATA
-	db.clearRoom('/demo', function() {
-		db.createColumn( '/demo', 'Not Started' );
-		db.createColumn( '/demo', 'Started' );
-		db.createColumn( '/demo', 'Testing' );
-		db.createColumn( '/demo', 'Review' );
-		db.createColumn( '/demo', 'Complete' );
+	db.clearRoom(room_name, function() {
+		db.setBoardSize(room_name, { width: 1200, height: 600 });
+		db.setTheme(room_name, 'bigcards')
 
-		createCard('/demo', 'card1', 'Hello this is fun', roundRand(600), roundRand(300), Math.random() * 10 - 5, 'yellow');
-		createCard('/demo', 'card2', 'Hello this is a new story.', roundRand(600), roundRand(300), Math.random() * 10 - 5, 'white');
-		createCard('/demo', 'card3', '.', roundRand(600), roundRand(300), Math.random() * 10 - 5, 'blue');
-		createCard('/demo', 'card4', '.', roundRand(600), roundRand(300), Math.random() * 10 - 5, 'green');
+		db.createColumn(room_name, 'To Do' );
+		db.createColumn(room_name, 'In progress' );
+		db.createColumn(room_name, 'Done' );
 
-		createCard('/demo', 'card5', 'Hello this is fun', roundRand(600), roundRand(300), Math.random() * 10 - 5, 'yellow');
-		createCard('/demo', 'card6', 'Hello this is a new card.', roundRand(600), roundRand(300), Math.random() * 10 - 5, 'yellow');
-		createCard('/demo', 'card7', '.', roundRand(600), roundRand(300), Math.random() * 10 - 5, 'blue');
-		createCard('/demo', 'card8', '.', roundRand(600), roundRand(300), Math.random() * 10 - 5, 'green');
+		createCard(room_name, 'card1', '**Discuss** new topics', 64, 235, Math.random() * 10 - 5, 'yellow');
+		createCard(room_name, 'card2', '# Important\n- Water the **flowers**!\n- Send a letter', 424, 217, Math.random() * 10 - 5, 'white');
+		createCard(room_name, 'card3', 'Buy tickets to the _cinema_.', 430, 450, Math.random() * 10 - 5, 'blue');
+		createCard(room_name, 'card4', 'Read funny book', 423, 66, Math.random() * 10 - 5, 'green');
+		createCard(room_name, 'card5', 'Learn [markdown syntax](https://www.markdownguide.org/basic-syntax/)', 0, 47, Math.random() * 10 - 5, 'red');
+		createCard(room_name, 'card6', 'Call your **friends**...', 855, 72, Math.random() * 10 - 5, 'orange');
+		createCard(room_name, 'card7', '# Repair printer\n---\nand test it!', 902, 240, Math.random() * 10 - 5, 'purple');
+		createCard(room_name, 'card8', 'Meet your family', 18, 444, Math.random() * 10 - 5, 'red');
 
-		db.createRow('/demo', 'row123', {id: 'row123', text: 'Not committed tasks...', y: 350});
+		db.createRow(room_name, 'row123', {id: 'row123', text: 'Other tasks...', y: 400});
 	});
 }
 

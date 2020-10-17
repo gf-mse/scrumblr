@@ -40,7 +40,7 @@
 	width: 79px;
 	height: 45px;
 	/* top | right | bottom | left */
-	margin: 4px 10px 0px 19px;
+	margin: 4px 10px 0px 22px;
 	font-family: "Arial Rounded MT Bold" , arial, serif;
 	font-size: 10px;
 	letter-spacing: 0px;
@@ -59,28 +59,27 @@
 }
 
 .content h1 {
-	font-family: 'Arial', "Arial Rounded MT Bold", arial, serif;
+	font-family: "Arial Rounded MT Bold", arial, serif;
 	color: black;
 	letter-spacing: 0px;
-	font-size: 14px;
+	font-size: 10px;
 	font-weight: bold;
 }
 
 .content h2 {
-	font-family: 'Arial', "Arial Rounded MT Bold", arial, serif;
+	font-family: "Arial Rounded MT Bold", arial, serif;
 	color: black;
 	letter-spacing: 0px;
-	font-size: 12px;
+	font-size: 10px;
 	font-weight: bold;
 	font-style: italic;
 }
 
 .content h3 {
-	font-family: 'Arial', "Arial Rounded MT Bold", arial, serif;
+	font-family: "Arial Rounded MT Bold", arial, serif;
 	color: black;
 	letter-spacing: 0px;
 	font-size: 10px;
-	font-weight: bold;
 	font-style: italic;
 }
 

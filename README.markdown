@@ -8,10 +8,11 @@ what is it
 This fork contains useful extensions and fixes of this simple and great tool used for my SCRUM stand-ups.
 - horizontal separators
 - seven colors of cards
-- card buttons for each color
+- create card button for each color
 - middle-sized cards
 - visible star stickers
 - MongoDB fixes
+- Markdown syntax on cards
 - ...
 
 ![Extensions and fixes](scrumblr_extensions_2020.png)
