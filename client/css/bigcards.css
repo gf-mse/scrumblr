@@ -41,6 +41,7 @@
 
 .content {
 	/* overflow: hidden; */
+	overflow: overlay;
 	display: block;
 	/*
 		width: 158px;
@@ -49,9 +50,10 @@
 	*/
 	width: calc(100% - 20px);
 	height: calc(100% - 30px);
-	text-align: center;
+	/* text-align: center; */
 	top: 8px;
 	/*margin: auto;*/
+	margin: 5px 23px 0px 34px;
 
 	font-family: 'Covered By Your Grace',"Arial Rounded MT Bold", arial, serif;
 	font-size: 18px;
