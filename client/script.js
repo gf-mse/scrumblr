@@ -18,9 +18,14 @@ function render(text) {
     // get first character of ltrimmed text
     var strStart = text.replace(/^\s+/g, '').substr(0,1)
     if ( strStart == '#' ) {
+        // replace board links
+        /* replace board links */
+        text = text.replace(/\b(board|subboard|sub-board):([a-zA-Z0-9-]+)/g, "[board: $2](/$2)");
         result = marked(text)
     } else { /* return raw text, presumably html */
-        result = text
+        // result = text
+        /* replace board links */
+        result = text.replace(/\b(board|subboard|sub-board):([a-zA-Z0-9-]+)/g, '<a href="/$2">board: $2</a>');
     }
     
     return result
