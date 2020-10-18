@@ -10,6 +10,9 @@ var socket = io.connect({path: baseurl + "/socket.io"});
 
 // use marked(), but only if the text begins with a header
 function render(text) {
+    if ( text == null ) text = '' ;
+    if ( text == undefined ) text = '' ;
+    
     // var strStart = text.trim()
     var strStart = text.replace(/^\s+|\s+$/g, '')
     // get first character of ltrimmed text
