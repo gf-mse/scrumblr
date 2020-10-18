@@ -5,8 +5,6 @@
 	xmargin: 0 10px 10px 0;
 	font-size: .9em;
 
-
-
 	overflow: hidden;
 
 	position: absolute;
@@ -40,12 +38,20 @@
 	z-index: -1000;
 }
 
+
 .content {
-	overflow: hidden;
+	/* overflow: hidden; */
 	display: block;
-	width: 158px;
-	height: 88px;
-	margin: 5px 23px 0px 34px;
+	/*
+		width: 158px;
+		height: 88px;
+		margin: 5px 23px 0px 34px;
+	*/
+	width: calc(100% - 20px);
+	height: calc(100% - 30px);
+	text-align: center;
+	top: 8px;
+	/*margin: auto;*/
 
 	font-family: 'Covered By Your Grace',"Arial Rounded MT Bold", arial, serif;
 	font-size: 18px;
@@ -57,18 +63,28 @@
 
 	color: black;
 	text-align: center;
-	padding-top: 18px;
+	/* padding-top: 18px; */
+	padding-top: 8px;
+	padding-left: 8px;
 	xline-height: 16px;
 
 	xopacity: .8;
 
 }
 
+
 .filler {
-	margin-right: 34px;
-	margin-bottom: 42px;
-	margin-left: 25px;
+	/*
+		margin-right: 34px;
+		margin-bottom: 42px;
+		margin-left: 25px;
+	*/
+	margin-right: 10px;
+	margin-bottom: 6px;
+	/*margin-left: 25px;*/
+	
 }
+
 
 .stickertarget {
 	position: absolute;
