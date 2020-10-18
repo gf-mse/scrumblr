@@ -12,7 +12,10 @@ var argv = require('yargs')
 
 exports.server = {
 	port: argv.port || 8080,
-	baseurl: argv.baseurl || '/'
+	baseurl: argv.baseurl || '/' ,
+        // use unsafe html?
+        /// unsafehtml = false
+        unsafehtml = true // shall be Ok for protected settings
 };
 
 exports.googleanalytics = {

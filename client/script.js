@@ -131,9 +131,10 @@ function getMessage(m) {
         case 'editCard':
             // $("#" + data.id).children('.content:first').text(data.value);
             /* now we need to store preprocessed text somewhere */
-            $("#" + data.id).children('.content:first').attr('data-text', 'encoded-edit+' + data.value);
+            // $("#" + data.id).children('.content:first').attr('data-text', 'encoded-edit+' + data.value);
+            $("#" + data.id).children('.content:first').attr('data-text', data.value);
             $("#" + data.id).children('.content:first').html(render(data.value));
-                
+
             break;
 
         case 'initColumns':
@@ -225,7 +226,8 @@ function drawNewCard(id, text, x, y, rot, colour, h, w, sticker, animationspeed)
     // 	$(this).focus();
     // } );
 
-    $("#" + id).children('.content:first').attr('data-text', 'encoded-new+' + text);
+    // $("#" + id).children('.content:first').attr('data-text', 'encoded-new+' + text);
+    $("#" + id).children('.content:first').attr('data-text', text);
 
 
     card.height(h);
