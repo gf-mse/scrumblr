@@ -292,6 +292,7 @@ function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
                         //notify server of delete
                         sendAction( 'deleteCard' , { 'id': id });
                 }
+        }
         
     );
 
