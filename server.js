@@ -98,6 +98,8 @@ io.sockets.on('connection', function (client) {
 			}
                         if ( !sizeonly ) {
                             return sanitizer.sanitize(text);
+                        } else {
+                            return text;
                         }
 		}
 		else
