@@ -171,8 +171,8 @@ function drawNewCard(id, text, x, y, rot, colour, h, w, sticker, animationspeed)
 
     console.log("drawNewCard(): h=" + h + ", w=" + w );
     // set default values
-    if (h == null) h = 152;
-    if (w == null) w = 230;
+    if (h == null || h == undefined) h = 152;
+    if (w == null || w == undefined) w = 230;
     
     // var h = '<div id="' + id + '" class="card ' + colour +
     //    ' draggable" style="-webkit-transform:rotate(' + rot +
