@@ -64,7 +64,7 @@
 	/** / height: 100%; / **/
 	/* width: 120%; */
 	/* height: 120%; */
-	width: calc(100% - 3px);
+	width: calc(100% - 6px);
 	height: calc(100% - 2px);
 
 	overflow: hidden;
