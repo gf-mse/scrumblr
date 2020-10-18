@@ -622,7 +622,8 @@ img {
 .content h1 {
 	font-family: 'Rock Salt', "Arial Rounded MT Bold", arial, serif;
 	color: #5c9db4;
-	font-size: 22px;
+	/* font-size: 22px; */
+	font-size: 18px; /* I think same size is Ok */
 }
 /* // we already have .content set in bigcards.css, don't we?
 .content * {
