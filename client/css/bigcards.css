@@ -1,6 +1,10 @@
 .card {
-	width: 230px;
-	height: 152px;
+	/*
+		width: 230px;
+		height: 152px;
+	*/
+	width: 168px;
+	height: 109px;
 
 	xpadding: 5px; float: left;
 	xmargin: 0 10px 10px 0;
@@ -81,15 +85,15 @@
 
 
 .filler {
-	/**/
+	/*
 		margin-right: 34px;
 		margin-bottom: 42px;
 		margin-left: 25px;
+	 */
 	/**/
-	/* 
 		margin-right: 10px;
 		margin-bottom: 6px;
-	*/
+	/**/
 	
 }
 
