@@ -64,14 +64,17 @@
 	z-index: -1000;
 
 	/* debug */
-	border: thin dotted black;
+	/* border: thin dotted black; */
 }
+/* debug */
+.card-image:hover { border: thin dotted black; }
 
 
 /* textarea */
 .content {
 	/* overflow: hidden; */
 	overflow: overlay;
+	/* overflow: auto; */
 	display: block;
 	/*
 		width: 158px;
@@ -107,8 +110,10 @@
 	xopacity: .8;
 
 	/* debug */
-	border: thin dotted green;
+	/* border: thin dotted green; */
 }
+/* debug */
+.content:hover { border: thin dotted green; }
 
 
 .filler {
