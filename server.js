@@ -129,6 +129,25 @@ io.sockets.on('connection', function (client) {
 
 				break;
 
+
+                        // +++
+			case 'resizeCard':
+				message_out = {
+					action: message.action,
+					data: {
+						id: scrub(message.data.id),
+						h: scrub(message.data.h),
+						w: scrub(message.data.w)
+					}
+				};
+
+				broadcastToRoom( client, message_out );
+
+				getRoom(client, function(room) {
+					db.cardSetHW( room, message.data.id, message.data.h, message.data.w );
+				});
+				break;
+
 			case 'moveCard':
 				//report to all other browsers
 				message_out = {

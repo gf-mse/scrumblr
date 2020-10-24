@@ -11,7 +11,7 @@ var socket = io.connect({path: baseurl + "/socket.io"});
 //an action has happened, send it to the
 //server
 function sendAction(a, d) {
-    //console.log('--> ' + a);
+    console.log('--> ' + a);
 
     var message = {
         action: a,
@@ -22,7 +22,7 @@ function sendAction(a, d) {
 }
 
 socket.on('connect', function() {
-    //console.log('successful socket.io connect');
+    console.log('successful socket.io connect');
 
     //let the final part of the path be the room name
     var room = location.pathname.substring(location.pathname.lastIndexOf('/'));
@@ -72,7 +72,7 @@ function getMessage(m) {
     var action = message.action;
     var data = message.data;
 
-    //console.log('<-- ' + action);
+    console.log('<-- ' + action);
 
     switch (action) {
         case 'roomAccept':
@@ -89,13 +89,18 @@ function getMessage(m) {
             moveCard($("#" + data.id), data.position);
             break;
 
+        case 'resizeCard':
+            resizeCard($("#" + data.id), data.h, data.w);
+            break;
+        
         case 'initCards':
             initCards(data);
             break;
 
         case 'createCard':
-            //console.log(data);
-            drawNewCard(data.id, data.text, data.x, data.y, data.rot, data.colour,
+            console.log(data);
+            // drawNewCard(data.id, data.text, data.x, data.y, data.rot, data.colour,
+            drawNewCard(data.id, data.text, data.x, data.y, data.rot, data.colour, data.h, data.w,
                 null);
             break;
 
@@ -160,11 +165,21 @@ $(document).bind('keyup', function(event) {
     keyTrap = event.which;
 });
 
-function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
+// function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
+function drawNewCard(id, text, x, y, rot, colour, h, w, sticker, animationspeed) {
     //cards[id] = {id: id, text: text, x: x, y: y, rot: rot, colour: colour};
 
-    var h = '<div id="' + id + '" class="card ' + colour +
-        ' draggable" style="-webkit-transform:rotate(' + rot +
+    console.log("drawNewCard(): h=" + h + ", w=" + w );
+    // set default values
+    if (h == null || h == undefined) h = 152;
+    if (w == null || w == undefined) w = 230;
+    // if (h == null || h == undefined) h = 109;
+    // if (w == null || w == undefined) w = 168;
+    
+    // var h = '<div id="' + id + '" class="card ' + colour +
+    //    ' draggable" style="-webkit-transform:rotate(' + rot +
+    var ht = '<div id="' + id + '" class="card ' + colour +
+        ' draggable resizable" style="-webkit-transform:rotate(' + rot +    
         'deg);\
 	">\
 	<img src="images/icons/token/Xion.png" class="card-icon delete-card-icon" />\
@@ -175,7 +190,8 @@ function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
         text + '</div><span class="filler"></span>\
 	</div>';
 
-    var card = $(h);
+    // var card = $(h);
+    var card = $(ht);
     card.appendTo('#board');
 
     //@TODO
@@ -189,6 +205,21 @@ function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
     // 	$(this).focus();
     // } );
 
+    card.height(h);
+    card.width(w);
+
+    card.resizable({
+        stop: function(ev, ui) {
+            console.log("resizeCard");
+            sendAction('resizeCard', {
+                id: id,
+                h: ui.size.height,
+                w: ui.size.width
+            });
+        }
+    });
+
+    
     card.draggable({
         snap: false,
         snapTolerance: 5,
@@ -329,6 +360,15 @@ function moveCard(card, position) {
     }, 500);
 }
 
+// +++
+function resizeCard(card, h, w) {
+    card.animate({
+        height: h,
+        width: w
+    }, 500);
+}
+
+
 function addSticker(cardId, stickerId) {
 
     stickerContainer = $('#' + cardId + ' .filler');
@@ -356,8 +396,12 @@ function addSticker(cardId, stickerId) {
 //----------------------------------
 // cards
 //----------------------------------
-function createCard(id, text, x, y, rot, colour) {
-    drawNewCard(id, text, x, y, rot, colour, null);
+
+// function createCard(id, text, x, y, rot, colour) {
+function createCard(id, text, x, y, rot, colour, h, w) {
+
+    // drawNewCard(id, text, x, y, rot, colour, null);
+    drawNewCard(id, text, x, y, rot, colour, h, w, null);
 
     var action = "createCard";
 
@@ -399,6 +443,8 @@ function initCards(cardArray) {
             card.y,
             card.rot,
             card.colour,
+            card.h, // +++
+            card.w,        
             card.sticker,
             0
         );
@@ -446,7 +492,7 @@ function drawNewColumn(columnName) {
 function onColumnChange(id, text) {
     var names = Array();
 
-    //console.log(id + " " + text );
+    console.log(id + " " + text );
 
     //Get the names of all the columns right from the DOM
     $('.col').each(function() {
@@ -575,7 +621,7 @@ function setName(name) {
 
 function displayInitialUsers(users) {
     for (var i in users) {
-        //console.log(users);
+        console.log(users);
         displayUserJoined(users[i].sid, users[i].user_name);
     }
 }
@@ -670,7 +716,7 @@ function adjustCard(offsets, doSync) {
                     top: parseInt(card.css('top').slice(0, -2))
                 }
             }; //use .css() instead of .position() because css' rotate
-            //console.log(data);
+            console.log(data);
             if (!doSync) {
                 card.css('left', data.position.left);
                 card.css('top', data.position.top);
@@ -833,6 +879,12 @@ $(function() {
             adjustCard(offsets, false);
         });
         $(".board-outline").bind("resizestop", function(event, ui) {
+            // +++
+            if (ui.element.context.className != "board-outline ui-resizable") {
+                return;
+            }
+            console.log(ui);
+            
             boardResizeHappened(event, ui);
             adjustCard(offsets, true);
         });

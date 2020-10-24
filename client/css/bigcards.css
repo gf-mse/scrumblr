@@ -1,11 +1,26 @@
+/*
+	card area (.card) -- textarea (.content)
+					 \
+					  card image (.card-image)
+
+	card image size is 230x152, text background size is ~170x100
+	(  )
+ */
+
 .card {
-	width: 230px;
-	height: 152px;
+	/**/
+		/* default size */
+		width: 230px;
+		height: 152px;
+	/**/
+	/*
+		width: 168px;
+		height: 109px;
+	*/
+
 	xpadding: 5px; float: left;
 	xmargin: 0 10px 10px 0;
 	font-size: .9em;
-
-
 
 	overflow: hidden;
 
@@ -16,7 +31,15 @@
 	left: 0px;
 
 	display: block;
+	
+	/* border-width: thin medium thick 10px; */
+	/* border-width: thin 10px; */
+	/* border-width: thin 10px 10px 10px; */
+	/* debug */
+	/* border: thin dotted blue; */
 }
+.card-image:hover { border: thin dotted black; }
+
 
 .pink {
 }
@@ -31,21 +54,55 @@
 }
 
 .card-image {
+	/* 230x152, visible size ~170x100 */
 	position: absolute;
 	xtop: -10;
-	left: -3px;
-	width: 100%;
-	height: 100%;
+
+	/** / left: -3px; / **/
+	/**/ left: 3px; /**/
+	/** / width: 100%; / **/
+	/** / height: 100%; / **/
+	/* width: 120%; */
+	/* height: 120%; */
+	width: calc(100% - 6px);
+	height: calc(100% - 2px);
+
 	overflow: hidden;
 	z-index: -1000;
-}
 
+	/* debug */
+	/* border: thin dotted black; */
+}
+/* debug */
+.card-image:hover { border: thin dotted blue; }
+
+
+/* textarea */
 .content {
-	overflow: hidden;
+	/* overflow: hidden; */
+	overflow: overlay;
+	/* overflow: auto; */
 	display: block;
-	width: 158px;
-	height: 88px;
-	margin: 5px 23px 0px 34px;
+	/*
+		width: 158px;
+		height: 88px;
+		margin: 5px 23px 0px 34px;
+	*/
+	/* width: calc(100% - 20px); */
+	/* width: calc(100% - 50px); */
+	/* width: 100%; */
+	/* height: 100%; */
+	/* height: calc(100% - 30px); */
+	/* text-align: center; */
+	/* top: 8px; */
+
+	top: 6% ; /* 10 / 152. * 100 */
+	left: 13% ; /* 30 / 230 * 100 */
+	width: 74% ; /* 170 / 230 * 100 */
+	height: 66% ; /* 100 / 152 * 100 */
+
+	/*margin: auto;*/
+	/* margin: 5px 23px 0px 34px; */
 
 	font-family: 'Covered By Your Grace',"Arial Rounded MT Bold", arial, serif;
 	font-size: 18px;
@@ -57,18 +114,33 @@
 
 	color: black;
 	text-align: center;
-	padding-top: 18px;
+	/* padding-top: 18px; */
+	padding-top: 8px;
+	padding-left: 8px;
 	xline-height: 16px;
 
 	xopacity: .8;
 
+	/* debug */
+	/* border: thin dotted green; */
 }
+/* debug */
+.content:hover { border: thin dotted red; }
+
 
 .filler {
-	margin-right: 34px;
-	margin-bottom: 42px;
-	margin-left: 25px;
+	/**/
+		margin-right: 34px;
+		margin-bottom: 42px;
+		margin-left: 25px;
+	/**/
+	/** /
+		margin-right: 10px;
+		margin-bottom: 6px;
+	/ **/
+	
 }
+
 
 .stickertarget {
 	position: absolute;
