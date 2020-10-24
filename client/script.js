@@ -277,6 +277,7 @@ function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
     );
 
     card.children('.delete-card-icon').click(
+/*
         function() {
             $("#" + id).remove();
             //notify server of delete
@@ -284,6 +285,15 @@ function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
                 'id': id
             });
         }
+ */
+        function(e){
+                if (e.shiftKey || confirm('Delete card?')) {
+                        $("#" + id).remove();
+                        //notify server of delete
+                        sendAction( 'deleteCard' , { 'id': id });
+                }
+        }
+        
     );
 
     card.children('.content').editable(function(value, settings) {
