@@ -111,7 +111,7 @@ io.sockets.on('connection', function (client) {
 
 
 	client.on('message', function( message ){
-		//console.log(message.action + " -- " + sys.inspect(message.data) );
+		console.log('Server action:' + message.action + ' -- ' + sys.inspect(message.data) );
 
 		var clean_data = {};
 		var clean_message = {};
@@ -329,7 +329,7 @@ io.sockets.on('connection', function (client) {
 				break;
 
 			default:
-				//console.log('unknown action');
+			    console.log('unknown action: ' + message.action);
 				break;
 		}
 	});
