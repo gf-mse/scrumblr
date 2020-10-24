@@ -456,12 +456,22 @@ function createCard(id, text, x, y, rot, colour, h, w) {
 
 }
 
+var colours = ['yellow', 'green', 'blue', 'white'];
 function randomCardColour() {
-    var colours = ['yellow', 'green', 'blue', 'white'];
+    // var colours = ['yellow', 'green', 'blue', 'white'];
 
     var i = Math.floor(Math.random() * colours.length);
 
     return colours[i];
+}
+
+var lastcolour = Math.floor(Math.random() * colours.length);
+function cycleCardColour() {
+    // var colours = ['yellow', 'green', 'blue', 'white'];
+    // var i = Math.floor(Math.random() * colours.length);
+    lastcolour = ( lastcolour + 1 ) % colours.length ;
+
+    return colours[lastcolour];
 }
 
 
@@ -796,7 +806,8 @@ $(function() {
                 '',
                 58, $('div.board-outline').height(), // hack - not a great way to get the new card coordinates, but most consistant ATM
                 rotation,
-                randomCardColour());
+                cycleCardColour());
+                // randomCardColour());
         });
 
 
