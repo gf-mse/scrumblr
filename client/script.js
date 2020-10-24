@@ -8,6 +8,30 @@ var keyTrap = null;
 var baseurl = location.pathname.substring(0, location.pathname.lastIndexOf('/'));
 var socket = io.connect({path: baseurl + "/socket.io"});
 
+// use marked(), but only if the text begins with a header
+function render(text) {
+    if ( text == null ) text = '' ;
+    if ( text == undefined ) text = '' ;
+    
+    // var strStart = text.trim()
+    var strStart = text.replace(/^\s+|\s+$/g, '')
+    // get first character of ltrimmed text
+    var strStart = text.replace(/^\s+/g, '').substr(0,1)
+    if ( strStart == '#' ) {
+        // replace board links
+        /* replace board links */
+        text = text.replace(/\b(board|subboard|sub-board):([a-zA-Z0-9-]+)/g, "[board: $2](/$2)");
+        result = marked(text)
+    } else { /* return raw text, presumably html */
+        // result = text
+        /* replace board links */
+        result = text.replace(/\b(board|subboard|sub-board):([a-zA-Z0-9-]+)/g, '<a href="/$2">board: $2</a>');
+    }
+    
+    return result
+}
+
+
 //an action has happened, send it to the
 //server
 function sendAction(a, d) {
@@ -113,7 +137,12 @@ function getMessage(m) {
             break;
 
         case 'editCard':
-            $("#" + data.id).children('.content:first').text(data.value);
+            // $("#" + data.id).children('.content:first').text(data.value);
+            /* now we need to store preprocessed text somewhere */
+            // $("#" + data.id).children('.content:first').attr('data-text', 'encoded-edit+' + data.value);
+            $("#" + data.id).children('.content:first').attr('data-text', data.value);
+            $("#" + data.id).children('.content:first').html(render(data.value));
+
             break;
 
         case 'initColumns':
@@ -185,10 +214,10 @@ function drawNewCard(id, text, x, y, rot, colour, h, w, sticker, animationspeed)
 	<img src="images/icons/token/Xion.png" class="card-icon delete-card-icon" />\
 	<img class="card-image" src="images/' +
         colour + '-card.png">\
-	<div id="content:' + id +
-        '" class="content stickertarget droppable">' +
-        text + '</div><span class="filler"></span>\
-	</div>';
+	<div id="content:' + id + '" class="content stickertarget droppable" data-text="">' +
+        render(text) + '</div><span class="filler"></span></div>';
+//  	<div id="content:' + id + '" class="content stickertarget droppable">' +
+//          text + '</div><span class="filler"></span></div>';
 
     // var card = $(h);
     var card = $(ht);
@@ -204,6 +233,10 @@ function drawNewCard(id, text, x, y, rot, colour, h, w, sticker, animationspeed)
     // card.click( function() {
     // 	$(this).focus();
     // } );
+
+    // $("#" + id).children('.content:first').attr('data-text', 'encoded-new+' + text);
+    $("#" + id).children('.content:first').attr('data-text', text);
+
 
     card.height(h);
     card.width(w);
@@ -328,10 +361,15 @@ function drawNewCard(id, text, x, y, rot, colour, h, w, sticker, animationspeed)
     );
 
     card.children('.content').editable(function(value, settings) {
+        $("#" + id).children('.content:first').attr('data-text', value);
         onCardChange(id, value);
-        return (value);
+        // return (value);
+        return (render(value));
     }, {
         type: 'textarea',
+        data: function() {
+            return $("#" + id).children('.content:first').attr('data-text');
+        },        
         submit: 'OK',
         style: 'inherit',
         cssclass: 'card-edit-form',
