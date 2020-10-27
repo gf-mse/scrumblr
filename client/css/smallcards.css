@@ -1,3 +1,12 @@
+/*
+	card area (.card) -- textarea (.content)
+					 \
+					  card image (.card-image)
+
+	card image size is 230x152, text background size is ~170x100
+	(  )
+ */
+
 .card {
 	width: 115px;
 	height: 76px;
@@ -18,6 +27,8 @@
 	display: block;
 
 }
+/* debug */
+.card:hover { border: thin dotted black; }
 
 .pink {
 }
@@ -40,7 +51,10 @@
 	overflow: hidden;
 	z-index: -1000;
 }
+/* debug */
+.card-image:hover { border: thin dotted blue; }
 
+/* textarea */
 .content {
 	overflow: hidden;
 	display: block;
@@ -61,6 +75,8 @@
 	text-align: center;
 	padding-top: 8px;
 }
+/* debug */
+.content:hover { border: thin dotted red; }
 
 
 .filler {
