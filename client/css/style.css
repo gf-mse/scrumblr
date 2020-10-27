@@ -105,8 +105,9 @@ width: 16px; height: 16px;
 	overflow: hidden;
 	resize: none;
 	width: 100%;
+
 	color: #330066;
-	color: #666;
+	/* color: #333; */
 
 }
 
