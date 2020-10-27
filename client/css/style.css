@@ -105,8 +105,9 @@ width: 16px; height: 16px;
 	overflow: hidden;
 	resize: none;
 	width: 100%;
+
 	color: #330066;
-	color: #666;
+	/* color: #333; */
 
 }
 
@@ -619,12 +620,14 @@ img {
 
 .ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
 
+/* // it is probably better to have different header styles in big/small mode?
 .content h1 {
 	font-family: 'Rock Salt', "Arial Rounded MT Bold", arial, serif;
 	color: #5c9db4;
-	/* font-size: 22px; */
-	font-size: 18px; /* I think same size is Ok */
+	/ * font-size: 22px; * /
+	font-size: 18px; / * I think same size is Ok * /
 }
+*/
 /* // we already have .content set in bigcards.css, don't we?
 .content * {
 	margin-top: 0;

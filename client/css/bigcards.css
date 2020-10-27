@@ -38,7 +38,7 @@
 	/* debug */
 	/* border: thin dotted blue; */
 }
-.card-image:hover { border: thin dotted black; }
+.card:hover { border: thin dotted black; }
 
 
 .pink {
@@ -101,7 +101,7 @@
 	width: 74% ; /* 170 / 230 * 100 */
 	height: 66% ; /* 100 / 152 * 100 */
 
-	/*margin: auto;*/
+	/* margin: auto; */
 	/* margin: 5px 23px 0px 34px; */
 
 	font-family: 'Covered By Your Grace',"Arial Rounded MT Bold", arial, serif;
@@ -116,7 +116,8 @@
 	text-align: center;
 	/* padding-top: 18px; */
 	padding-top: 8px;
-	padding-left: 8px;
+	/* padding-left: 8px; */
+	padding-left: 5px;
 	xline-height: 16px;
 
 	xopacity: .8;
@@ -126,6 +127,23 @@
 }
 /* debug */
 .content:hover { border: thin dotted red; }
+
+.content h1 {
+	font-family: 'Rock Salt', "Arial Rounded MT Bold", arial, serif;
+	color: #5c9db4;
+	/* font-size: 22px; */
+	font-size: 18px; /* I think same size is Ok */
+}
+.content h2 {
+	font-family: 'Rock Salt', "Arial Rounded MT Bold", arial, serif;
+	color: #5c9db4;
+	font-size: 14px;
+}
+.content h2 {
+	font-family: 'Rock Salt', "Arial Rounded MT Bold", arial, serif;
+	color: #5c9db4;
+	font-size: 12px;
+}
 
 
 .filler {
