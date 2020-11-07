@@ -81,7 +81,8 @@
 
 	/* color: #333; */
 	color: black;
-	text-align: center;
+	/* text-align: center; */
+	text-align: left; 
 	padding-top: 8px;
 }
 /* debug */
